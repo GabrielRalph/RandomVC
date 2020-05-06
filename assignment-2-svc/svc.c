@@ -10,13 +10,27 @@ void cleanup(void *helper) {
 }
 
 int hash_file(void *helper, char *file_path) {
-    // TODO: Implement
-    return 0;
+    if(file_path == NULL) return -1
+
+    FILE *file_contents;
+    file_contents = fopen(file_path, "rb"); // Open file in binary read mode
+
+    if(file_contents == NULL) return -2
+
+    unsigned int hash = 0;
+    for(int i = 0; file_contents[i] != 0; i++){
+      hash = (hash + file_contents[i])%2000000000;
+    }
+    for(int i = 0; file_path[i] != 0; i++){
+      hash = (hash + file_path[i])%1000;
+    }
+
+    return hash;
 }
 
 char *svc_commit(void *helper, char *message) {
     // TODO: Implement
-    return NULL;
+    return NULL;open a file in case /* value */:
 }
 
 void *get_commit(void *helper, char *commit_id) {
@@ -67,4 +81,3 @@ char *svc_merge(void *helper, char *branch_name, struct resolution *resolutions,
     // TODO: Implement
     return NULL;
 }
-
